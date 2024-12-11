@@ -1,5 +1,3 @@
-// src/types/index.ts
-
 /**
  * Configuration options for the SDK
  */

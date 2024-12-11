@@ -1,16 +1,17 @@
-import eslint from '@eslint/js';
-import tseslint from '@typescript-eslint/eslint-plugin';
-import tsparser from '@typescript-eslint/parser';
-import prettier from 'eslint-plugin-prettier';
+/* eslint-env node */
 
-export default [
-  eslint.configs.recommended,
+const js = require('@eslint/js');
+const tseslint = require('@typescript-eslint/eslint-plugin');
+const tsparser = require('@typescript-eslint/parser');
+const prettier = require('eslint-plugin-prettier');
+
+module.exports = [
+  js.configs.recommended,
   {
-    ignores: ['docs/**/*'],
+    ignores: ['docs/**/*', 'eslint.config.js', 'jest.config.js'],
   },
   {
     files: ['src/**/*.ts'],
-    env: "node",
     languageOptions: {
       parser: tsparser,
       parserOptions: {
@@ -20,6 +21,8 @@ export default [
       globals: {
         console: 'readonly',
         process: 'readonly',
+        fetch: 'readonly',
+        AbortSignal: 'readonly',
       },
     },
     plugins: {
@@ -49,12 +52,15 @@ export default [
       globals: {
         describe: 'readonly',
         it: 'readonly',
+        fetch: 'readonly',
+        AbortSignal: 'readonly',
         expect: 'readonly',
         beforeEach: 'readonly',
         afterEach: 'readonly',
         beforeAll: 'readonly',
         afterAll: 'readonly',
         jest: 'readonly',
+        env: 'readonly',
       },
     },
     plugins: {
@@ -63,7 +69,7 @@ export default [
     },
     rules: {
       ...tseslint.configs.recommended.rules,
-      '@typescript-eslint/explicit-function-return-type': 'off', // Disable for tests
+      '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-unused-vars': [
         'error',

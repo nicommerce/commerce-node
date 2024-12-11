@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
-import { APIRequestConfig, APIResponse } from '../types/api.js';
-import { RetryOptions, SDKError, SDKErrorType } from '../types/index.js';
-import { SDKConfig } from '../types/index.js';
+import { APIRequestConfig, APIResponse } from '../types/api';
+import { RetryOptions, SDKError, SDKErrorType } from '../types/index';
+import { SDKConfig } from '../types/index';
 import { URL } from 'node:url';
 
 export abstract class BaseService {
@@ -33,12 +33,16 @@ export abstract class BaseService {
         signal: AbortSignal.timeout(options.timeout ?? 30000),
       });
       if (!response.ok) {
-        throw new SDKError(SDKErrorType.SERVER, `API request failed: ${response.statusText}`, {
-          status: response.status,
-          statusText: response.statusText,
-        })
+        throw new SDKError(
+          SDKErrorType.SERVER,
+          `API request failed: ${response.statusText}`,
+          {
+            status: response.status,
+            statusText: response.statusText,
+          },
+        );
       }
-      const responseData = (await response.json());
+      const responseData = await response.json();
       return {
         data: responseData as T,
         requestId: response.headers.get('X-Request-Id') ?? randomUUID(),
@@ -46,11 +50,14 @@ export abstract class BaseService {
         timestamp: new Date().toISOString(),
       };
     } catch (error) {
-      console.error(error);
       if (error instanceof SDKError) {
         throw error;
       }
-      throw new SDKError(SDKErrorType.UNKNOWN, 'An unknown error occurred', error);
+      throw new SDKError(
+        SDKErrorType.UNKNOWN,
+        'An unknown error occurred',
+        error,
+      );
     }
   }
 }

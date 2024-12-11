@@ -1,4 +1,3 @@
-// src/client.ts
 import { randomUUID } from 'crypto';
 import {
   SDKConfig,
@@ -6,9 +5,8 @@ import {
   SDKErrorType,
   RetryOptions,
   BaseResponse,
-} from './types/index.js';
-import { HydrateChargeService } from './service/hydrate-charge.js';
-import { CreateChargeService } from './service/create-charge.js';
+} from './types/index';
+import { ChargesService } from './service/charges.service';
 
 /**
  * Default configuration for the SDK
@@ -32,11 +30,10 @@ const DEFAULT_RETRY_OPTIONS: RetryOptions = {
 /**
  * Main SDK client class
  */
-export class SDKClient {
+export class CommerceSDK {
   private readonly config: SDKConfig;
   private readonly retryOptions: RetryOptions;
-  public readonly hydrateCharge: HydrateChargeService;
-  public readonly createCharge: CreateChargeService;
+  public readonly charges: ChargesService;
 
   /**
    * Creates a new instance of the SDK client
@@ -49,10 +46,6 @@ export class SDKClient {
   ) {
     if (!config.apiKey) {
       console.warn('No API key provided in configuration');
-      // throw new SDKError(
-      //   SDKErrorType.VALIDATION,
-      //   'API key is required in configuration',
-      // );
     }
 
     // Now TypeScript knows apiKey exists and is string
@@ -66,12 +59,7 @@ export class SDKClient {
       ...retryOptions,
     };
 
-    this.hydrateCharge = new HydrateChargeService(
-      this.config,
-      this.retryOptions,
-    );
-
-    this.createCharge = new CreateChargeService(this.config, this.retryOptions);
+    this.charges = new ChargesService(this.config, this.retryOptions);
   }
 
   /**
@@ -81,7 +69,6 @@ export class SDKClient {
    */
   public async initialize(): Promise<BaseResponse> {
     try {
-      // Perform any necessary initialization
       return {
         success: true,
         requestId: randomUUID(),
