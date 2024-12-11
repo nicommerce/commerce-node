@@ -1,9 +1,8 @@
-export default {
-  preset: 'ts-jest/presets/default-esm',
-  extensionsToTreatAsEsm: ['.ts'],
-  moduleNameMapper: {
-    '^(\\.{1,2}/.*)\\.js$': '$1',
-  },
+// jest.config.js
+
+/** @type {import('jest').Config} */
+module.exports = {
+  preset: 'ts-jest',
   testEnvironment: 'node',
   testMatch: ['**/tests/**/*.test.ts'],
   collectCoverageFrom: ['src/**/*.ts'],
@@ -19,7 +18,7 @@ export default {
     '^.+\\.tsx?$': [
       'ts-jest',
       {
-        useESM: true,
+        tsconfig: 'tsconfig.json',
       },
     ],
   },
