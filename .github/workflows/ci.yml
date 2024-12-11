@@ -1,0 +1,31 @@
+name: ci
+'on':
+  pull_request:
+    branches:
+      - dev
+      - main
+permissions:
+  actions: read
+  contents: read
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: yarn
+      - run: >-
+          git rev-parse --verify main || git remote set-branches origin main &&
+          git fetch --depth 1 origin main && git branch main origin/main
+      - run: npm install --global yarn
+      - run: yarn install --frozen-lockfile
+      - name: build
+        run: yarn run build
+      - name: lint
+        run: yarn run lint
+      - name: test
+        run: yarn run test
