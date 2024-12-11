@@ -10,6 +10,7 @@ export default [
   },
   {
     files: ['src/**/*.ts'],
+    env: "node",
     languageOptions: {
       parser: tsparser,
       parserOptions: {
