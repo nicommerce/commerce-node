@@ -1,3 +1,40 @@
+const TIMELINE_ITEM_STATUS = {
+  COMPLETED: 'COMPLETED',
+  EXPIRED: 'EXPIRED',
+  FAILED: 'FAILED',
+  NEW: 'NEW',
+  PENDING: 'PENDING',
+  SIGNED: 'SIGNED',
+  CANCELED: 'CANCELED',
+} as const;
+
+// Export the type and values separately
+export type Web3ChargeTimelineItemStatus =
+  (typeof TIMELINE_ITEM_STATUS)[keyof typeof TIMELINE_ITEM_STATUS];
+export const TimelineItemStatus = TIMELINE_ITEM_STATUS;
+
+const PRICING_TYPE = {
+  fixed_price: 'fixed_price',
+  no_price: 'no_price',
+} as const;
+
+export type Web3ChargePricingType =
+  (typeof PRICING_TYPE)[keyof typeof PRICING_TYPE];
+export const PricingType = PRICING_TYPE;
+
+const CHARGE_KIND = {
+  WEB3: 'WEB3',
+} as const;
+
+export type Web3ChargeChargeKind =
+  (typeof CHARGE_KIND)[keyof typeof CHARGE_KIND];
+export const ChargeKind = CHARGE_KIND;
+
+export type Web3ChargeTimelineItem = {
+  status: Web3ChargeTimelineItemStatus;
+  time: string;
+};
+
 export type Web3ChargeWeb3RetailPaymentMetadataFeesItem = {
   title: string;
   amount: Currency;
@@ -46,9 +83,14 @@ export type Web3Charge = {
   web3RetailPaymentMetadata?: Web3ChargeWeb3RetailPaymentMetadata;
 };
 
-export type Web3ChargeWeb3DataSubsidizedPaymentsChainToTokens = { [key: string]: any };
+export type Web3ChargeWeb3DataSubsidizedPaymentsChainToTokens = Record<
+  string,
+  unknown
+>;
 
-export type Web3ChargeWeb3DataSettlementCurrencyAddresses = { [key: string]: string };
+export type Web3ChargeWeb3DataSettlementCurrencyAddresses = {
+  [key: string]: string;
+};
 
 export type Web3ChargeWeb3DataContractAddresses = { [key: string]: string };
 
@@ -111,39 +153,11 @@ export type Web3ChargeWeb3DataFailureEventsItem = {
   txHsh?: string;
 };
 
-export type Web3ChargeTimelineItemStatus =
-  (typeof Web3ChargeTimelineItemStatus)[keyof typeof Web3ChargeTimelineItemStatus];
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const Web3ChargeTimelineItemStatus = {
-  COMPLETED: 'COMPLETED',
-  EXPIRED: 'EXPIRED',
-  FAILED: 'FAILED',
-  NEW: 'NEW',
-  PENDING: 'PENDING',
-  SIGNED: 'SIGNED',
-  CANCELED: 'CANCELED',
-} as const;
-
-export type Web3ChargeTimelineItem = {
-  status: Web3ChargeTimelineItemStatus;
-  time: string;
-};
-
 export type Web3ChargeRedirects = {
   cancelUrl?: string;
   successUrl?: string;
   willRedirectAfterSuccess?: boolean;
 };
-
-export type Web3ChargePricingType =
-  (typeof Web3ChargePricingType)[keyof typeof Web3ChargePricingType];
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const Web3ChargePricingType = {
-  fixed_price: 'fixed_price',
-  no_price: 'no_price',
-} as const;
 
 export type Web3ChargePricing = {
   local: Currency;
@@ -155,13 +169,6 @@ export type Web3ChargeMetadata = { [key: string]: string };
 export type Web3ChargeCheckout = {
   id?: string;
 };
-
-export type Web3ChargeChargeKind = (typeof Web3ChargeChargeKind)[keyof typeof Web3ChargeChargeKind];
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const Web3ChargeChargeKind = {
-  WEB3: 'WEB3',
-} as const;
 
 export type Currency = {
   amount: string;

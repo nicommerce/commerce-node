@@ -10,7 +10,6 @@ export default [
   },
   {
     files: ['src/**/*.ts'],
-    env: "node",
     languageOptions: {
       parser: tsparser,
       parserOptions: {
@@ -20,6 +19,8 @@ export default [
       globals: {
         console: 'readonly',
         process: 'readonly',
+        fetch: 'readonly',
+        AbortSignal: 'readonly',
       },
     },
     plugins: {
@@ -55,6 +56,7 @@ export default [
         beforeAll: 'readonly',
         afterAll: 'readonly',
         jest: 'readonly',
+        env: 'readonly',
       },
     },
     plugins: {

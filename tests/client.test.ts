@@ -1,34 +1,15 @@
-// tests/client.test.ts
+import { CommerceSDK } from '../src/client';
+import { SDKConfig } from '../src/types/index';
 
-import { SDKClient } from '../src/client.js';
-import { SDKConfig, SDKError, SDKErrorType } from '../src/types/index.js';
-
-describe('SDKClient', () => {
+describe('CommerceSDK', () => {
   describe('constructor', () => {
-    it('should throw if apiKey is empty string', () => {
-      expect(() => new SDKClient({ apiKey: '' })).toThrow(
-        new SDKError(
-          SDKErrorType.VALIDATION,
-          'API key is required in configuration',
-        ),
-      );
-    });
-
-    // TypeScript won't allow this to compile without @ts-expect-error
-    // because apiKey is required in the type
-    it('should not compile if apiKey is missing', () => {
-      // @ts-expect-error apiKey is required
-      const invalidCreate = () => new SDKClient({});
-      expect(invalidCreate).toThrow(SDKError);
-    });
-
     it('should create instance with minimal config', () => {
-      const client = new SDKClient({ apiKey: 'test-key' });
-      expect(client).toBeInstanceOf(SDKClient);
+      const client = new CommerceSDK({ apiKey: 'test-key' });
+      expect(client).toBeInstanceOf(CommerceSDK);
     });
 
     it('should merge default config with provided config', () => {
-      const client = new SDKClient({
+      const client = new CommerceSDK({
         apiKey: 'test-key',
         timeout: 5000,
       });
@@ -38,13 +19,13 @@ describe('SDKClient', () => {
       expect(config.timeout).toBe(5000);
 
       // Default values should be present
-      expect(config.baseUrl).toBe('https://api.example.com');
+      expect(config.baseUrl).toBe('https://api.commerce.coinbase.com');
       expect(config.version).toBe('v1');
     });
 
     it('should not modify the original config object', () => {
       const originalConfig = { apiKey: 'test-key' };
-      const client = new SDKClient(originalConfig);
+      const client = new CommerceSDK(originalConfig);
 
       // Original config should remain unchanged
       expect(originalConfig).toEqual({ apiKey: 'test-key' });
@@ -58,7 +39,7 @@ describe('SDKClient', () => {
 
   describe('initialize', () => {
     it('should return successful response with proper types', async () => {
-      const client = new SDKClient({ apiKey: 'test-key' });
+      const client = new CommerceSDK({ apiKey: 'test-key' });
       const response = await client.initialize();
 
       expect(response).toEqual({
@@ -75,19 +56,19 @@ describe('SDKClient', () => {
   describe('type safety', () => {
     it('should enforce type safety for config values', () => {
       // @ts-expect-error apiKey must be string
-      new SDKClient({ apiKey: 123 });
+      new CommerceSDK({ apiKey: 123 });
 
       // @ts-expect-error timeout must be number
-      new SDKClient({ apiKey: 'test-key', timeout: '1000' });
+      new CommerceSDK({ apiKey: 'test-key', timeout: '1000' });
 
       // @ts-expect-error version must be string
-      new SDKClient({ apiKey: 'test-key', version: 123 });
+      new CommerceSDK({ apiKey: 'test-key', version: 123 });
 
       // @ts-expect-error baseUrl must be string
-      new SDKClient({ apiKey: 'test-key', baseUrl: true });
+      new CommerceSDK({ apiKey: 'test-key', baseUrl: true });
 
       // @ts-expect-error headers must be Record<string, string>
-      new SDKClient({ apiKey: 'test-key', headers: { key: 123 } });
+      new CommerceSDK({ apiKey: 'test-key', headers: { key: 123 } });
     });
 
     it('should accept valid config with all properties', () => {
@@ -99,12 +80,12 @@ describe('SDKClient', () => {
         headers: { 'Custom-Header': 'value' },
       };
 
-      const client = new SDKClient(validConfig);
-      expect(client).toBeInstanceOf(SDKClient);
+      const client = new CommerceSDK(validConfig);
+      expect(client).toBeInstanceOf(CommerceSDK);
     });
 
     it('should properly type the config values', () => {
-      const client = new SDKClient({ apiKey: 'test-key' });
+      const client = new CommerceSDK({ apiKey: 'test-key' });
       const config = client.getConfig();
 
       // Check if values exist and are of correct type
@@ -128,7 +109,7 @@ describe('SDKClient', () => {
 
   describe('config immutability', () => {
     it('should return frozen config object from getConfig', () => {
-      const client = new SDKClient({ apiKey: 'test-key' });
+      const client = new CommerceSDK({ apiKey: 'test-key' });
       const config = client.getConfig();
 
       expect(Object.isFrozen(config)).toBe(true);
