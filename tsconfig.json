@@ -1,36 +1,36 @@
 {
-    "compilerOptions": {
-      "target": "es2020",
-      "module": "nodenext",
-      "moduleResolution": "nodenext",
-      "lib": ["es2020"],
-      "declaration": true,
-      "declarationMap": true,
-      "sourceMap": true,
-      "outDir": "./dist",
-      "rootDir": "./src",
-      "strict": true,
-      "noImplicitAny": true,
-      "strictNullChecks": true,
-      "strictFunctionTypes": true,
-      "strictBindCallApply": true,
-      "strictPropertyInitialization": true,
-      "noImplicitThis": true,
-      "alwaysStrict": true,
-      "noUnusedLocals": true,
-      "noUnusedParameters": true,
-      "noImplicitReturns": true,
-      "noFallthroughCasesInSwitch": true,
-      "baseUrl": "./",
-      "paths": {
-        "*": ["node_modules/*"]
-      },
-      "esModuleInterop": true,
-      "experimentalDecorators": true,
-      "emitDecoratorMetadata": true,
-      "skipLibCheck": true,
-      "forceConsistentCasingInFileNames": true
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "lib": ["es2020"],
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": "./",
+    "paths": {
+      "*": ["node_modules/*"]
     },
-    "include": ["src/**/*"],
-    "exclude": ["node_modules", "dist", "tests"]
-  }
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "tests"]
+}
