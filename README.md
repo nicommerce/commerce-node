@@ -78,6 +78,7 @@ Error types include:
 ## Development
 
 ```bash
+corepack enable
 # Install dependencies
 yarn install
 
