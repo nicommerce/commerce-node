@@ -1,5 +1,12 @@
 # Coinbase Commerce SDK Changelog
 
+# [1.2.0](https://github.com/nicommerce/commerce-node/compare/v1.1.0...v1.2.0) (2024-12-12)
+
+
+### Features
+
+* **pay-charge:** check and approve token allowance ([#14](https://github.com/nicommerce/commerce-node/issues/14)) ([07511d7](https://github.com/nicommerce/commerce-node/commit/07511d7d345d4010d106a52a602f7f67ffc84e44))
+
 # [1.1.0](https://github.com/nicommerce/commerce-node/compare/v1.0.1...v1.1.0) (2024-12-12)
 
 
