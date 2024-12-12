@@ -1,7 +1,9 @@
 import { APIResponse } from '../types/api';
 import {
+  ChargeResponse,
   ChargesResponse,
   CreateChargeParams,
+  GetChargesParams,
   HydrateChargeParams,
 } from '../types/charge';
 import { BaseService } from './base.service';
@@ -14,7 +16,7 @@ export class ChargesService extends BaseService {
    * @param params.pricing_type - The pricing type for the charge
    * @param params.local_price - The price information for the charge
    *
-   * @returns {Promise<APIResponse<ChargesResponse>>} A promise that resolves to the created charge
+   * @returns {Promise<APIResponse<ChargeResponse>>} A promise that resolves to the created charge
    *
    * @example
    * ```typescript
@@ -31,8 +33,8 @@ export class ChargesService extends BaseService {
    */
   async createCharge(
     params: CreateChargeParams,
-  ): Promise<APIResponse<ChargesResponse>> {
-    return this.request<ChargesResponse>({
+  ): Promise<APIResponse<ChargeResponse>> {
+    return this.request<ChargeResponse>({
       data: params,
       path: `/charges`,
       method: 'POST',
@@ -47,7 +49,7 @@ export class ChargesService extends BaseService {
    * @param params.sender - The blockchain address of the sender
    * @param params.chain_id - The blockchain network identifier
    *
-   * @returns {Promise<APIResponse<ChargesResponse>>} A promise that resolves to the hydrated charge
+   * @returns {Promise<APIResponse<ChargeResponse>>} A promise that resolves to the hydrated charge
    *
    * @example
    * ```typescript
@@ -65,8 +67,8 @@ export class ChargesService extends BaseService {
   async hydrateCharge(
     charge_id: string,
     params: HydrateChargeParams,
-  ): Promise<APIResponse<ChargesResponse>> {
-    return this.request<ChargesResponse>({
+  ): Promise<APIResponse<ChargeResponse>> {
+    return this.request<ChargeResponse>({
       data: params,
       path: `/charges/${charge_id}/hydrate`,
       method: 'PUT',
@@ -77,7 +79,7 @@ export class ChargesService extends BaseService {
    * Retrieves a specific charge by ID from the Coinbase Commerce platform
    *
    * @param charge_id - The unique identifier of the charge to retrieve
-   * @returns {Promise<APIResponse<ChargesResponse>>} A promise that resolves to the charge details
+   * @returns {Promise<APIResponse<ChargeResponse>>} A promise that resolves to the charge details
    *
    * @example
    * ```typescript
@@ -87,10 +89,49 @@ export class ChargesService extends BaseService {
    *
    * @throws {SDKError} When the API request fails or the charge is not found
    */
-  async getCharge(charge_id: string): Promise<APIResponse<ChargesResponse>> {
-    return this.request<ChargesResponse>({
+  async getCharge(charge_id: string): Promise<APIResponse<ChargeResponse>> {
+    return this.request<ChargeResponse>({
       path: `/charges/${charge_id}`,
       method: 'GET',
+    });
+  }
+
+  /**
+   * Retrieves a list of charges from the Coinbase Commerce platform
+   *
+   * @param [params] - Optional parameters for the list request
+   * @param [params.limit] - Maximum number of charges to return (default: 25)
+   * @param [params.starting_after] - Cursor for pagination: retrieves results after this charge ID
+   * @param [params.ending_before] - Cursor for pagination: retrieves results before this charge ID
+   * @param [params.order] - Sort order for results ('desc' | 'asc')
+   *
+   * @returns {Promise<APIResponse<ChargesResponse>>} A promise that resolves to a paginated list of charges
+   *
+   * @example
+   * ```typescript
+   * // Get first page of charges
+   * const { data: charges } = await commerce.charges.getCharges({
+   *   limit: 10,
+   *   order: 'desc'
+   * });
+   *
+   * // Get next page using cursor
+   * const nextPage = await commerce.charges.getCharges({
+   *   starting_after: charges.pagination.cursor_range[1]
+   * });
+   * ```
+   *
+   * @throws {SDKError} When the API request fails or invalid parameters are provided
+   */
+  async getCharges(
+    params?: GetChargesParams,
+  ): Promise<APIResponse<ChargesResponse>> {
+    return this.request<ChargesResponse>({
+      path: `/charges`,
+      method: 'GET',
+      options: {
+        params: params as Record<string, string | number | boolean>,
+      },
     });
   }
 }

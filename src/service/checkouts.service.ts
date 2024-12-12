@@ -1,10 +1,10 @@
 import { APIResponse } from '../types/api';
 import { BaseService } from './base.service';
 import {
+  CheckoutResponse,
   CheckoutsResponse,
   CreateCheckoutParams,
   GetCheckoutsParams,
-  GetCheckoutsResponse,
 } from '../types/checkout';
 
 export class CheckoutsService extends BaseService {
@@ -20,7 +20,7 @@ export class CheckoutsService extends BaseService {
    * @param params.local_price - The price information for the checkout
    * @param params.requested_info - Array of information to request from the buyer
    *
-   * @returns {Promise<APIResponse<CheckoutsResponse>>} A promise that resolves to the created checkout
+   * @returns {Promise<APIResponse<CheckoutResponse>>} A promise that resolves to the created checkout
    *
    * @example
    * ```typescript
@@ -40,8 +40,8 @@ export class CheckoutsService extends BaseService {
    */
   async createCheckout(
     params: CreateCheckoutParams,
-  ): Promise<APIResponse<CheckoutsResponse>> {
-    return this.request<CheckoutsResponse>({
+  ): Promise<APIResponse<CheckoutResponse>> {
+    return this.request<CheckoutResponse>({
       data: params,
       path: '/checkouts',
       method: 'POST',
@@ -52,7 +52,7 @@ export class CheckoutsService extends BaseService {
    * Retrieves a specific checkout by ID from the Coinbase Commerce platform
    *
    * @param checkout_id - The unique identifier of the checkout to retrieve
-   * @returns {Promise<APIResponse<CheckoutsResponse>>} A promise that resolves to the checkout details
+   * @returns {Promise<APIResponse<CheckoutResponse>>} A promise that resolves to the checkout details
    *
    * @example
    * ```typescript
@@ -64,8 +64,8 @@ export class CheckoutsService extends BaseService {
    */
   async getCheckout(
     checkout_id: string,
-  ): Promise<APIResponse<CheckoutsResponse>> {
-    return this.request<CheckoutsResponse>({
+  ): Promise<APIResponse<CheckoutResponse>> {
+    return this.request<CheckoutResponse>({
       path: `/checkouts/${checkout_id}`,
       method: 'GET',
     });
@@ -80,7 +80,7 @@ export class CheckoutsService extends BaseService {
    * @param [params.ending_before] - Cursor for pagination: retrieves results before this checkout ID
    * @param [params.order] - Sort order for results ('desc' | 'asc')
    *
-   * @returns {Promise<APIResponse<GetCheckoutsResponse>>} A promise that resolves to a paginated list of checkouts
+   * @returns {Promise<APIResponse<CheckoutsResponse>>} A promise that resolves to a paginated list of checkouts
    *
    * @example
    * ```typescript
@@ -100,8 +100,8 @@ export class CheckoutsService extends BaseService {
    */
   async getCheckouts(
     params?: GetCheckoutsParams,
-  ): Promise<APIResponse<GetCheckoutsResponse>> {
-    return this.request<GetCheckoutsResponse>({
+  ): Promise<APIResponse<CheckoutsResponse>> {
+    return this.request<CheckoutsResponse>({
       path: '/checkouts',
       method: 'GET',
       options: {

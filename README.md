@@ -92,6 +92,14 @@ yarn test
 yarn test:integration
 ```
 
+## Docs
+
+To generate `SDK` docs:
+
+```bash
+yarn run docs
+```
+
 ## License
 
 MIT

@@ -33,6 +33,10 @@ async function test(): Promise<void> {
   console.log('Charge retrieved:');
   console.log(JSON.stringify(charge, null, 2));
 
+  const { data: charges } = await commerce.charges.getCharges();
+  console.log('Charges retrieved:');
+  console.log(JSON.stringify(charges, null, 2));
+
   const { data: checkout } = await commerce.checkouts.createCheckout({
     pricing_type: 'fixed_price',
     local_price: {
@@ -61,6 +65,10 @@ async function test(): Promise<void> {
   });
   console.log('New webhook created:');
   console.log(JSON.stringify(newWebhook.data, null, 2));
+
+  const { data: webhook } = await commerce.webhooks.getWebhooks();
+  console.log('Webhooks retrieved:');
+  console.log(JSON.stringify(webhook, null, 2));
 }
 
 test();

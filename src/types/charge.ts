@@ -1,4 +1,4 @@
-import { BaseResource, BaseMetadata, Price } from './common';
+import { BaseResource, BaseMetadata, Price, Pagination } from './common';
 
 export const TIMELINE_ITEM_STATUS = {
   COMPLETED: 'COMPLETED',
@@ -71,8 +71,14 @@ export type Web3Charge = BaseResource & {
   web3RetailPaymentMetadata?: Web3ChargeWeb3RetailPaymentMetadata;
 };
 
-export interface ChargesResponse {
+export interface ChargeResponse {
   data: Web3Charge;
+  warnings?: string[];
+}
+
+export interface ChargesResponse {
+  pagination: Pagination;
+  data: Web3Charge[];
   warnings?: string[];
 }
 
@@ -88,6 +94,14 @@ export type HydrateChargeParams = {
   sender: string;
   chain_id: number;
 };
+
+// Optional: Query parameters type for the list method
+export interface GetChargesParams {
+  limit?: number;
+  starting_after?: string;
+  ending_before?: string;
+  order?: 'desc' | 'asc';
+}
 
 export type Web3ChargeWeb3DataSubsidizedPaymentsChainToTokens = Record<
   string,

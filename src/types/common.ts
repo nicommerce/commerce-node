@@ -24,3 +24,15 @@ export interface BaseResource {
   organization_name?: string;
   pricing_type: PricingType;
 }
+
+export interface Pagination {
+  order: 'desc' | 'asc';
+  starting_after: string | null;
+  ending_before: string | null;
+  total: number;
+  limit: number;
+  yielded: number;
+  cursor_range: [string, string];
+  previous_uri: string;
+  next_uri: string;
+}

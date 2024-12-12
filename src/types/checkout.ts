@@ -1,4 +1,4 @@
-import { Price, PricingType } from './common';
+import { Pagination, Price, PricingType } from './common';
 
 export type RequestedInfoItem =
   | 'name'
@@ -38,25 +38,13 @@ export type Checkout = {
   resource: string;
 };
 
-export interface CheckoutsResponse {
+export interface CheckoutResponse {
   data: Checkout;
   warnings?: string[];
 }
 
-export interface CheckoutPagination {
-  order: 'desc' | 'asc';
-  starting_after: string | null;
-  ending_before: string | null;
-  total: number;
-  limit: number;
-  yielded: number;
-  cursor_range: [string, string];
-  previous_uri: string;
-  next_uri: string;
-}
-
-export interface GetCheckoutsResponse {
-  pagination: CheckoutPagination;
+export interface CheckoutsResponse {
+  pagination: Pagination;
   data: Checkout[];
   warnings?: string[];
 }

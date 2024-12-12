@@ -1,5 +1,11 @@
+import { Pagination } from './common';
+
 export type CreateWebhookParams = {
   url: string;
+};
+
+export type UpdateWebhookParams = {
+  subscribed_events: WebhookSubscribedEvents;
 };
 
 export type WebhookSubscribedEvents = {
@@ -83,5 +89,11 @@ export type Merchant = {
 
 export interface WebhookResponse {
   data: Merchant;
+  warnings?: string[];
+}
+
+export interface WebhooksResponse {
+  pagination: Pagination;
+  data: Merchant[];
   warnings?: string[];
 }
