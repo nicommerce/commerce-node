@@ -6,10 +6,19 @@ The [Coinbase Commerce](https://www.coinbase.com/commerce) Node SDK provides a c
 
 ```bash
 # Using yarn
-yarn add @coinbase/commerce-node
+yarn add commerce-node
 
 # Using npm
-npm install @coinbase/commerce-node
+npm install commerce-node
+```
+
+**NOTE**
+
+There is a known issue with [viem](https://github.com/wevm/viem/issues/2621).
+The temporary workaround is to add the following to your `tsconfig.sjon`
+
+```json
+"skipLibCheck": true
 ```
 
 ## Configuration
@@ -17,7 +26,7 @@ npm install @coinbase/commerce-node
 Create a new SDK instance with your API credentials:
 
 ```typescript
-import { CommerceSDK } from '@coinbase/commerce-node';
+import { CommerceSDK } from 'commerce-node';
 
 const commerce = new CommerceSDK({
   apiKey: 'YOUR_API_KEY', // Required
