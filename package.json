@@ -1,13 +1,19 @@
 {
   "name": "commerce-node",
-  "version": "0.1.0",
-  "description": "A TypeScript SDK for NodeJS",
+  "private": false,
+  "description": "Official Coinbase Commerce SDK for Node.js",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
+    "commit": "git-cz",
     "build": "rimraf dist && tsc",
     "type-check": "tsc --noEmit",
     "test": "jest",
@@ -24,9 +30,23 @@
     "postversion": "git push && git push --tags",
     "test:integration": "yarn build && node --env-file=.env dist/scripts/pay-charge.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "coinbase",
+    "commerce",
+    "payments",
+    "crypto",
+    "web3",
+    "sdk"
+  ],
+  "author": "Commerce",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coinbase/commerce-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/coinbase/commerce-sdk/issues"
+  },
   "packageManager": "yarn@4.1.0",
   "engines": {
     "node": ">=18.0.0"
@@ -38,7 +58,12 @@
     ]
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.6.0",
+    "@commitlint/config-conventional": "^19.6.0",
     "@eslint/js": "^9.16.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/npm": "^12.0.1",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.10.1",
     "@typescript-eslint/eslint-plugin": "^8.18.0",
@@ -51,6 +76,7 @@
     "pinst": "^3.0.0",
     "prettier": "^3.4.2",
     "rimraf": "^6.0.1",
+    "semantic-release": "^24.2.0",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "typedoc": "^0.27.4",
