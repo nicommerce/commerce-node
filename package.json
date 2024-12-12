@@ -1,6 +1,13 @@
 {
   "name": "commerce-node",
-  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicommerce/commerce-node.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nicommerce/commerce-node/issues"
+  },
+  "homepage": "https://github.com/nicommerce/commerce-node#readme",
   "description": "Official Coinbase Commerce SDK for Node.js",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -9,6 +16,12 @@
     "README.md",
     "LICENSE"
   ],
+  "author": "Commerce",
+  "license": "MIT",
+  "packageManager": "yarn@4.1.0",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -38,19 +51,6 @@
     "web3",
     "sdk"
   ],
-  "author": "Commerce",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/coinbase/commerce-sdk.git"
-  },
-  "bugs": {
-    "url": "https://github.com/coinbase/commerce-sdk/issues"
-  },
-  "packageManager": "yarn@4.1.0",
-  "engines": {
-    "node": ">=18.0.0"
-  },
   "lint-staged": {
     "*.{js,ts}": [
       "eslint --fix",

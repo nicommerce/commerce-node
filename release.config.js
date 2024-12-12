@@ -1,5 +1,6 @@
 const config = {
   branches: ['main'],
+  repositoryUrl: 'https://github.com/nicommerce/commerce-node.git',
   plugins: [
     [
       '@semantic-release/commit-analyzer',
