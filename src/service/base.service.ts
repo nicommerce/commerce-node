@@ -3,7 +3,7 @@ import { APIRequestConfig, APIResponse } from '../types/api';
 import { RetryOptions, SDKError, SDKErrorType } from '../types/index';
 import { SDKConfig } from '../types/index';
 import { URL } from 'node:url';
-import camelcaseKeys from 'camelcase-keys';
+import { deepCamelcaseKeys } from '../utils/casing';
 
 export abstract class BaseService {
   constructor(
@@ -46,9 +46,8 @@ export abstract class BaseService {
       const responseData = await response.json();
 
       return {
-        data: camelcaseKeys(
+        data: deepCamelcaseKeys(
           responseData as Record<string, unknown> | Record<string, unknown>[],
-          { deep: true },
         ) as T,
         requestId: response.headers.get('X-Request-Id') ?? randomUUID(),
         success: true,
