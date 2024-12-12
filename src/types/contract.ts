@@ -2,7 +2,7 @@ import { FeeAmount } from '@uniswap/v3-sdk';
 import { Web3ChargeWeb3DataTransferIntentCallData } from './charge.js';
 
 type SignatureTransferDetails = {
-  to: string;
+  to: Address;
   requestedAmount: bigint;
 };
 
@@ -11,11 +11,11 @@ export type Permit2SignatureTransferData = {
   transferDetails: SignatureTransferDetails;
   // Note: signature is required
   // We need to add as optional here because some uses of type will not have field
-  signature?: string;
+  signature: Address;
 };
 
 type DecoratedIntentValues = {
-  deadline: number;
+  deadline: bigint;
   feeAmount: bigint;
   recipientAmount: bigint;
 };
@@ -27,12 +27,12 @@ export type TransferIntent = Omit<
   DecoratedIntentValues;
 
 export interface TokenPermissions {
-  token: string;
+  token: Address;
   amount: bigint;
 }
 export interface PermitTransferFrom {
   permitted: TokenPermissions;
-  spender: string;
+  spender: Address;
   nonce: bigint;
   deadline: bigint;
 }
@@ -41,7 +41,7 @@ export type Address = `0x${string}`;
 
 export interface PaymentCurrency {
   isNativeAsset: boolean;
-  contractAddress?: string;
+  contractAddress: Address;
   decimals: number;
   uniswapFeeTier?: FeeAmount;
 }

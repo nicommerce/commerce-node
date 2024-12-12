@@ -6,6 +6,8 @@ export interface SDKConfig {
   apiKey: string;
   /** Base URL for API requests */
   baseUrl?: string;
+  /** Base URL for RPC requests */
+  baseRpcUrl?: string;
   /** Request timeout in milliseconds */
   timeout?: number;
   /** Version of the API to use */

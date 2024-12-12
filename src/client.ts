@@ -9,6 +9,7 @@ import {
 import { ChargesService } from './service/charges.service';
 import { CheckoutsService } from './service/checkouts.service';
 import { WebhooksService } from './service/webhooks.service';
+import { WalletsService } from './service/wallets.service';
 
 /**
  * Default configuration for the SDK
@@ -38,6 +39,7 @@ export class CommerceSDK {
   public readonly charges: ChargesService;
   public readonly checkouts: CheckoutsService;
   public readonly webhooks: WebhooksService;
+  public readonly wallets: WalletsService;
 
   /**
    * Creates a new instance of the SDK client
@@ -66,6 +68,7 @@ export class CommerceSDK {
     this.charges = new ChargesService(this.config, this.retryOptions);
     this.checkouts = new CheckoutsService(this.config, this.retryOptions);
     this.webhooks = new WebhooksService(this.config, this.retryOptions);
+    this.wallets = new WalletsService(this.config, this.retryOptions);
   }
 
   /**

@@ -1,6 +1,6 @@
 import { ExtractAbiFunction, ExtractAbiFunctionNames } from 'abitype';
 
-export const contractAbi = [
+export const COMMERCE_CONTRACT_ABI = [
   {
     inputs: [
       {
@@ -675,9 +675,9 @@ export const contractAbi = [
 ] as const;
 
 export type TransferContractFunction = ExtractAbiFunctionNames<
-  typeof contractAbi,
+  typeof COMMERCE_CONTRACT_ABI,
   'payable' | 'nonpayable'
 >;
 
 export type TransferContractFunctionArgs<F extends TransferContractFunction> =
-  ExtractAbiFunction<typeof contractAbi, F>['inputs'];
+  ExtractAbiFunction<typeof COMMERCE_CONTRACT_ABI, F>['inputs'];
