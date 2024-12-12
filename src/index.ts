@@ -35,8 +35,8 @@ export {
   GetCheckoutsParams,
   GetCheckoutsResponse,
   RequestedInfoItem,
-  CheckoutPagination, // Added
-  CheckoutMetadata, // Added
+  CheckoutPagination,
+  CheckoutMetadata,
 } from './types/checkout';
 
 // Export webhook types
@@ -47,10 +47,10 @@ export {
   WebhookSubscribedEvents,
   Merchant,
   MerchantSettings,
-  ApiKey, // Added
-  AutoconversionSetting, // Added
-  BusinessBranding, // Added
-  EmailPreferences, // Added
+  ApiKey,
+  AutoconversionSetting,
+  BusinessBranding,
+  EmailPreferences,
 } from './types/webhook';
 
 // Export charge types
@@ -64,10 +64,10 @@ export {
   TIMELINE_ITEM_STATUS,
   Web3ChargeTimelineItemStatus,
   Web3ChargeTimelineItem,
-  Web3ChargeCheckout, // Added
-  Web3ChargeRedirects, // Added
-  Web3ChargeWeb3Data, // Added
-  Web3ChargeWeb3RetailPaymentMetadata, // Added
+  Web3ChargeCheckout,
+  Web3ChargeRedirects,
+  Web3ChargeWeb3Data,
+  Web3ChargeWeb3RetailPaymentMetadata,
 } from './types/charge';
 
 // Export API types
@@ -75,5 +75,5 @@ export {
   APIResponse,
   APIRequestConfig,
   RequestOptions,
-  HTTPMethod, // Added
+  HTTPMethod,
 } from './types/api';
