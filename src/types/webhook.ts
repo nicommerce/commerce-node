@@ -1,5 +1,3 @@
-// src/types/webhook.ts
-
 export type CreateWebhookParams = {
   url: string;
 };
@@ -32,22 +30,22 @@ export type ApiKey = {
   request_count: number;
 };
 
-type AutoconversionSetting = {
+export type AutoconversionSetting = {
   autoconversion_enabled: boolean;
 };
 
-type BusinessBranding = {
+export type BusinessBranding = {
   brand_color: string;
   organization_name: string;
 };
 
-type EmailPreferences = {
+export type EmailPreferences = {
   charges: boolean;
   language: string;
   marketing: boolean;
 };
 
-type MerchantSettings = {
+export type MerchantSettings = {
   api_keys: ApiKey[];
   autoconversion_setting: AutoconversionSetting;
   business_branding: BusinessBranding;

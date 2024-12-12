@@ -1,7 +1,6 @@
 import { BaseResource, BaseMetadata, Price } from './common';
 
-// Timeline status
-const TIMELINE_ITEM_STATUS = {
+export const TIMELINE_ITEM_STATUS = {
   COMPLETED: 'COMPLETED',
   EXPIRED: 'EXPIRED',
   FAILED: 'FAILED',
@@ -15,8 +14,7 @@ export type Web3ChargeTimelineItemStatus =
   (typeof TIMELINE_ITEM_STATUS)[keyof typeof TIMELINE_ITEM_STATUS];
 export const TimelineItemStatus = TIMELINE_ITEM_STATUS;
 
-// Charge kind
-const CHARGE_KIND = {
+export const CHARGE_KIND = {
   WEB3: 'WEB3',
 } as const;
 

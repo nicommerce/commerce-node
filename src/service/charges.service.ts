@@ -11,10 +11,8 @@ export class ChargesService extends BaseService {
    * Creates a new charge in the Coinbase Commerce platform
    *
    * @param params - The charge creation parameters
-   * @param params.pricing_type - The pricing type for the charge ('fixed_price' | 'no_price')
+   * @param params.pricing_type - The pricing type for the charge
    * @param params.local_price - The price information for the charge
-   * @param params.local_price.amount - The amount in the specified currency
-   * @param params.local_price.currency - The currency code (e.g., 'USD')
    *
    * @returns {Promise<APIResponse<ChargesResponse>>} A promise that resolves to the created charge
    *

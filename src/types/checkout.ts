@@ -1,8 +1,6 @@
-// src/types/checkout.ts
-
 import { Price, PricingType } from './common';
 
-type RequestedInfoItem =
+export type RequestedInfoItem =
   | 'name'
   | 'email'
   | 'address'

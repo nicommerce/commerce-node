@@ -12,29 +12,27 @@ export class CheckoutsService extends BaseService {
    * Creates a new checkout in the Coinbase Commerce platform
    *
    * @param params - The checkout creation parameters
-   * @param params.pricing_type - The pricing type for the checkout ('fixed_price' | 'no_price')
-   * @param params.total_price - The price information for the checkout
-   * @param params.total_price.amount - The amount in the specified currency
-   * @param params.total_price.currency - The currency code (e.g., 'USD')
-   * @param [params.buyer_locale] - The locale for the buyer's checkout experience
-   * @param [params.metadata] - Additional metadata for the checkout
-   * @param [params.metadata.custom_field] - First custom field
-   * @param [params.metadata.custom_field_two] - Second custom field
-   * @param [params.requested_info] - Information to request from the buyer ('name' | 'email' | 'address' | 'phone' | 'employer' | 'occupation')
+   * @param params.name - The name of the checkout
+   * @param params.description - The description of the checkout
+   * @param params.pricing_type - The pricing type for the checkout
+   * @param params.logo_url - The URL for the checkout's logo
+   * @param params.extended_description - Additional description for the checkout
+   * @param params.local_price - The price information for the checkout
+   * @param params.requested_info - Array of information to request from the buyer
    *
    * @returns {Promise<APIResponse<CheckoutsResponse>>} A promise that resolves to the created checkout
    *
    * @example
    * ```typescript
    * const { data: checkout } = await commerce.checkouts.createCheckout({
+   *   name: 'Test Checkout',
+   *   description: 'Test checkout description',
    *   pricing_type: 'fixed_price',
    *   local_price: {
    *     amount: '100.00',
-   *     currency: 'USD',
+   *     currency: 'USD'
    *   },
-   *   name: 'Test Checkout',
-   *   description: 'Test checkout description',
-   *   requested_info: ['email'],
+   *   requested_info: ['email']
    * });
    * ```
    *
