@@ -24,6 +24,12 @@ import {
 import { signPermit } from '../utils/signPermit';
 import { COMMERCE_CONTRACT_ABI } from '../abi/commerceContract';
 
+/**
+ * Service for managing Charges within the SDK
+ * Provides functionality for creating and configuring charges
+ *
+ * @extends {BaseService}
+ */
 export class ChargesService extends BaseService {
   /**
    * Creates a new charge in the Coinbase Commerce platform
@@ -151,6 +157,43 @@ export class ChargesService extends BaseService {
     });
   }
 
+  /**
+   * Processes a payment for a charge using Web3
+   *
+   * @param params - The payment parameters
+   * @param params.charge - The hydrated charge to be paid
+   * @param params.walletClient - The Viem wallet client for transaction signing
+   * @param params.currency - The currency to use for payment (ERC20 token information)
+   *
+   * @returns {Promise<PayChargeResponse>} A promise that resolves to the payment transaction details
+   * @property {string} transactionHash - The hash of the submitted transaction
+   *
+   * @example
+   * ```typescript
+   * const { data: charge } = await commerce.charges.hydrateCharge('charge_id', {
+   *   sender: walletClient.account.address,
+   *   chain_id: 1
+   * });
+   *
+   * const paymentResult = await commerce.charges.payCharge({
+   *   charge: charge.data,
+   *   walletClient,
+   *   currency: {
+   *     contractAddress: '0x...' // ERC20 token address
+   *   }
+   * });
+   *
+   * console.log(`Transaction submitted: ${paymentResult.transactionHash}`);
+   * ```
+   *
+   * @throws {SDKError} With type VALIDATION when:
+   * - The charge hasn't been hydrated
+   * - The wallet is not connected
+   * - There's a chain ID mismatch
+   * - The payment currency is not supported
+   * - No commerce contract is found on the chain
+   * @throws {SDKError} With type UNKNOWN for other transaction-related errors
+   */
   async payCharge(params: PayChargeParams): Promise<PayChargeResponse> {
     const { charge, walletClient, currency } = params;
     if (!charge.web3Data?.transferIntent) {
@@ -209,6 +252,7 @@ export class ChargesService extends BaseService {
       functionName: 'balanceOf',
       args: [payerAddress],
     });
+    // TODO: ADD BALANCE CHECK
     console.log({ balance });
 
     const signatureTransferData = await signPermit({

@@ -1,0 +1,10 @@
+{
+  "entryPoints": ["src/index.ts"],
+  "out": "docs",
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "excludeInternal": true,
+  "externalPattern": ["**/node_modules/**"],
+  "exclude": ["**/node_modules/**"],
+  "name": "Commerce Node SDK"
+}

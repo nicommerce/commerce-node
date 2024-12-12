@@ -7,6 +7,12 @@ import {
   GetCheckoutsParams,
 } from '../types/checkout';
 
+/**
+ * Service for managing Checkouts within the SDK
+ * Provides functionality for creating and configuring checkouts
+ *
+ * @extends {BaseService}
+ */
 export class CheckoutsService extends BaseService {
   /**
    * Creates a new checkout in the Coinbase Commerce platform
