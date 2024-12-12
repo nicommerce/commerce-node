@@ -1,5 +1,12 @@
 # Coinbase Commerce SDK Changelog
 
+# [1.1.0](https://github.com/nicommerce/commerce-node/compare/v1.0.1...v1.1.0) (2024-12-12)
+
+
+### Features
+
+* **pay-charge:** add balance checking ([#13](https://github.com/nicommerce/commerce-node/issues/13)) ([8840072](https://github.com/nicommerce/commerce-node/commit/884007275cb3ed9e280c26304b1890e3520311db))
+
 ## [1.0.1](https://github.com/nicommerce/commerce-node/compare/v1.0.0...v1.0.1) (2024-12-12)
 
 # 1.0.0 (2024-12-12)
