@@ -4,8 +4,8 @@ import { CommerceSDK } from '../client';
 const COMMERCE_API_KEY = process.env.COMMERCE_API_KEY;
 const COMMERCE_API_URL = process.env.COMMERCE_API_URL;
 const COMMERCE_RPC_URL = process.env.COMMERCE_RPC_URL;
-const COMMERCE_PAYER_WALLET_MNEMONIC =
-  process.env.COMMERCE_PAYER_WALLET_MNEMONIC;
+const COMMERCE_PAYER_WALLET_PRIVATE_KEY =
+  process.env.COMMERCE_PAYER_WALLET_PRIVATE_KEY;
 const USDC_CURRENCY: PaymentCurrency = {
   contractAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
   isNativeAsset: false,
@@ -81,7 +81,7 @@ async function test(): Promise<void> {
   console.log(JSON.stringify(webhook, null, 2));
   console.log(JSON.stringify(hydratedCharge.data, null, 2));
   const payerWallet = commerce.wallets.createWallet({
-    secretWords: COMMERCE_PAYER_WALLET_MNEMONIC as string,
+    privateKey: `0x${COMMERCE_PAYER_WALLET_PRIVATE_KEY as string}`,
     chainId: 8453,
   });
   console.log(payerWallet.account?.address);

@@ -1,4 +1,7 @@
+import { Address } from './contract';
+
 export type CreateWalletParams = {
-  secretWords: string;
+  privateKey?: Address;
+  secretWords?: string;
   chainId: number;
 };
