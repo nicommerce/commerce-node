@@ -21,7 +21,7 @@ import {
   inferContractFunctionFromCurrency,
   transferToken,
 } from '../utils/contract';
-import { signPermit } from '../utils/signPermit';
+import { PERMIT2_ADDRESS, signPermit } from '../utils/signPermit';
 import { COMMERCE_CONTRACT_ABI } from '../abi/commerceContract';
 
 /**
@@ -268,6 +268,7 @@ export class ChargesService extends BaseService {
         'Insufficient USDC balance for payment',
       );
     }
+
     const { maxFeePerGas } = await extendedClient.estimateFeesPerGas();
 
     const gasLimit = (getGasLimit(functionName) * BigInt(3)) / BigInt(2);
@@ -279,6 +280,37 @@ export class ChargesService extends BaseService {
         SDKErrorType.VALIDATION,
         `Insufficient native balance for gas fees, ${formatEther(nativeBalance, 'wei')} of ${formatEther(totalGasFee, 'gwei')} required`,
       );
+    }
+
+    const tokenAllowance = await extendedClient.readContract({
+      address: currency.contractAddress,
+      abi: erc20Abi,
+      functionName: 'allowance',
+      args: [payerAddress, PERMIT2_ADDRESS],
+    });
+
+    if (tokenAllowance < totalUsdcChargeAmount) {
+      const allowanceTxn = await extendedClient.writeContract({
+        account: extendedClient.account,
+        chain: walletClient.chain,
+        address: currency.contractAddress,
+        abi: erc20Abi,
+        functionName: 'approve',
+        args: [
+          PERMIT2_ADDRESS,
+          totalUsdcChargeAmount * (BigInt(11) / BigInt(10)),
+        ],
+      });
+      const allowanceTxnReceipt =
+        await extendedClient.waitForTransactionReceipt({
+          hash: allowanceTxn,
+        });
+      if (allowanceTxnReceipt.status !== 'success') {
+        throw new SDKError(
+          SDKErrorType.UNKNOWN,
+          'Failed to approve USDC token allowance',
+        );
+      }
     }
 
     const signatureTransferData = await signPermit({
