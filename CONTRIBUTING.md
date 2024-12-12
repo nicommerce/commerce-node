@@ -47,7 +47,7 @@ feat(charges): add support for recurring charges
 fix(webhooks): correct signature verification logic
 
 # Documentation update
-docs(README): update installation instructions
+docs(readme): update installation instructions
 
 # Performance improvement
 perf(sdk): optimize API request batching

@@ -6,5 +6,19 @@
   "excludeInternal": true,
   "externalPattern": ["**/node_modules/**"],
   "exclude": ["**/node_modules/**"],
-  "name": "Commerce Node SDK"
+  "theme": "default",
+  "name": "Coinbase Commerce SDK",
+  "includeVersion": true,
+  "hideGenerator": true,
+  "searchInComments": true,
+  "navigationLinks": {
+    "GitHub": "https://github.com/nicommerce/commerce-node",
+    "NPM": "https://www.npmjs.com/package/commerce-node"
+  },
+  "sidebarLinks": {
+    "API Reference": "https://docs.cloud.coinbase.com/commerce/reference"
+  },
+  "categorizeByGroup": true,
+  "cleanOutputDir": true,
+  "customCss": "./docs-styles/custom.css"
 }
