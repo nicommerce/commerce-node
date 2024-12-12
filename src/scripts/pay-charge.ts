@@ -1,18 +1,28 @@
+import { PaymentCurrency } from '../types/contract';
 import { CommerceSDK } from '../client';
 
 const COMMERCE_API_KEY = process.env.COMMERCE_API_KEY;
 const COMMERCE_API_URL = process.env.COMMERCE_API_URL;
+const COMMERCE_RPC_URL = process.env.COMMERCE_RPC_URL;
+const COMMERCE_PAYER_WALLET_MNEMONIC =
+  process.env.COMMERCE_PAYER_WALLET_MNEMONIC;
+const USDC_CURRENCY: PaymentCurrency = {
+  contractAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
+  isNativeAsset: false,
+  decimals: 6,
+};
 
 async function test(): Promise<void> {
   const commerce = new CommerceSDK({
     apiKey: COMMERCE_API_KEY as string,
     baseUrl: COMMERCE_API_URL,
+    baseRpcUrl: COMMERCE_RPC_URL,
   });
 
   const { data: newCharge } = await commerce.charges.createCharge({
     pricing_type: 'fixed_price',
     local_price: {
-      amount: '100.00',
+      amount: '0.01',
       currency: 'USD',
     },
   });
@@ -22,8 +32,8 @@ async function test(): Promise<void> {
   const { data: hydratedCharge } = await commerce.charges.hydrateCharge(
     newCharge.data.id,
     {
-      sender: '0x5770D0616b99E89817A8D9BDe61fddc3A941BdF7',
-      chain_id: 1,
+      sender: '0x89fAbEA34A3A377916EBF7793f37E11EE98D29Fa',
+      chain_id: 8453,
     },
   );
   console.log('Charge hydrated:');
@@ -69,6 +79,18 @@ async function test(): Promise<void> {
   const { data: webhook } = await commerce.webhooks.getWebhooks();
   console.log('Webhooks retrieved:');
   console.log(JSON.stringify(webhook, null, 2));
+  console.log(JSON.stringify(hydratedCharge.data, null, 2));
+  const payerWallet = commerce.wallets.createWallet({
+    secretWords: COMMERCE_PAYER_WALLET_MNEMONIC as string,
+    chainId: 8453,
+  });
+  console.log(payerWallet.account?.address);
+  const response = await commerce.charges.payCharge({
+    walletClient: payerWallet,
+    charge: hydratedCharge.data,
+    currency: USDC_CURRENCY,
+  });
+  console.log(response);
 }
 
 test();

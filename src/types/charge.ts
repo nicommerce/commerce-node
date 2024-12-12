@@ -1,6 +1,9 @@
+import { WalletClient } from 'viem';
 import { BaseResource, BaseMetadata, Price, Pagination } from './common';
 
-export const TIMELINE_ITEM_STATUS = {
+import { Address, PaymentCurrency } from './contract';
+
+const TIMELINE_ITEM_STATUS = {
   COMPLETED: 'COMPLETED',
   EXPIRED: 'EXPIRED',
   FAILED: 'FAILED',
@@ -112,7 +115,7 @@ export type Web3ChargeWeb3DataSettlementCurrencyAddresses = {
   [key: string]: string;
 };
 
-export type Web3ChargeWeb3DataContractAddresses = { [key: string]: string };
+export type Web3ChargeWeb3DataContractAddresses = { [key: string]: Address };
 
 export type Web3ChargeWeb3Data = {
   failureEvents: Web3ChargeWeb3DataFailureEventsItem[];
@@ -128,21 +131,21 @@ export type Web3ChargeWeb3Data = {
 export type Web3ChargeWeb3DataTransferIntentMetadata = {
   chainId: number;
   /** @deprecated */
-  contractAddress: string;
-  sender: string;
+  contractAddress: Address;
+  sender: Address;
 };
 
 export type Web3ChargeWeb3DataTransferIntentCallData = {
   deadline: string;
   feeAmount: string;
-  id: string;
-  operator: string;
-  prefix: string;
-  recipient: string;
+  id: Address;
+  operator: Address;
+  prefix: Address;
+  recipient: Address;
   recipientAmount: string;
-  recipientCurrency: string;
-  refundDestination: string;
-  signature: string;
+  recipientCurrency: Address;
+  refundDestination: Address;
+  signature: Address;
 };
 
 export type Web3ChargeWeb3DataTransferIntent = {
@@ -188,4 +191,14 @@ export type Web3ChargeMetadata = BaseMetadata;
 
 export type Web3ChargeCheckout = {
   id?: string;
+};
+
+export type PayChargeParams = {
+  charge: Web3Charge;
+  walletClient: WalletClient;
+  currency: PaymentCurrency;
+};
+
+export type PayChargeResponse = {
+  transactionHash: string;
 };

@@ -63,7 +63,7 @@ export {
   Web3Charge,
   Web3ChargeChargeKind,
   CHARGE_KIND,
-  TIMELINE_ITEM_STATUS,
+  TimelineItemStatus,
   Web3ChargeTimelineItemStatus,
   Web3ChargeTimelineItem,
   Web3ChargeCheckout,
