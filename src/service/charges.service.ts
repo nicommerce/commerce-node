@@ -1,4 +1,4 @@
-import { erc20Abi, publicActions } from 'viem';
+import { erc20Abi, formatEther, parseGwei, publicActions } from 'viem';
 import { APIResponse } from '../types/api';
 import {
   ChargeResponse,
@@ -245,7 +245,7 @@ export class ChargesService extends BaseService {
       );
     }
 
-    const balance = await extendedClient.readContract({
+    const usdcBalance = await extendedClient.readContract({
       address: charge.web3Data.transferIntent.callData
         .recipientCurrency as Address,
       abi: erc20Abi,
@@ -253,7 +253,33 @@ export class ChargesService extends BaseService {
       args: [payerAddress],
     });
     // TODO: ADD BALANCE CHECK
-    console.log({ balance });
+
+    const nativeBalance = await extendedClient.getBalance({
+      address: payerAddress,
+    });
+
+    const totalUsdcChargeAmount =
+      BigInt(charge.web3Data.transferIntent.callData.recipientAmount) +
+      BigInt(charge.web3Data.transferIntent.callData.feeAmount);
+
+    if (usdcBalance < totalUsdcChargeAmount) {
+      throw new SDKError(
+        SDKErrorType.VALIDATION,
+        'Insufficient USDC balance for payment',
+      );
+    }
+    const { maxFeePerGas } = await extendedClient.estimateFeesPerGas();
+
+    const gasLimit = (getGasLimit(functionName) * BigInt(3)) / BigInt(2);
+
+    const totalGasFee = maxFeePerGas * gasLimit;
+
+    if (parseGwei(nativeBalance.toString()) < totalGasFee) {
+      throw new SDKError(
+        SDKErrorType.VALIDATION,
+        `Insufficient native balance for gas fees, ${formatEther(nativeBalance, 'wei')} of ${formatEther(totalGasFee, 'gwei')} required`,
+      );
+    }
 
     const signatureTransferData = await signPermit({
       walletClient,
@@ -261,14 +287,11 @@ export class ChargesService extends BaseService {
       ownerAddress: payerAddress,
       contractAddress: currency.contractAddress,
       spenderAddress: commerceContractAddress,
-      value:
-        BigInt(charge.web3Data.transferIntent.callData.recipientAmount) +
-        BigInt(charge.web3Data.transferIntent.callData.feeAmount),
+      value: totalUsdcChargeAmount,
       deadline: BigInt(getUnixTimestamp(new Date(charge.expiresAt))),
     });
 
     const { args } = transferToken(transferIntent, signatureTransferData);
-    const gasLimit = (getGasLimit(functionName) * BigInt(3)) / BigInt(2);
 
     await extendedClient.simulateContract({
       account: extendedClient.account,
