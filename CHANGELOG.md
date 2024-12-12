@@ -1,5 +1,7 @@
 # Coinbase Commerce SDK Changelog
 
+## [1.0.1](https://github.com/nicommerce/commerce-node/compare/v1.0.0...v1.0.1) (2024-12-12)
+
 # 1.0.0 (2024-12-12)
 
 
