@@ -17,7 +17,7 @@ const config = {
 
           // Patch changes
           { type: 'fix', release: 'patch' },
-          { type: 'docs', scope: 'README', release: 'patch' },
+          { type: 'docs', scope: 'readme', release: 'patch' },
           { type: 'perf', release: 'patch' },
           { type: 'refactor', release: 'patch' },
 
