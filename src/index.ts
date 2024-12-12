@@ -5,6 +5,7 @@ export { CommerceSDK } from './client';
 export { ChargesService } from './service/charges.service';
 export { CheckoutsService } from './service/checkouts.service';
 export { WebhooksService } from './service/webhooks.service';
+export { WalletsService } from './service/wallets.service';
 export { BaseService } from './service/base.service';
 
 // Export common types
@@ -29,6 +30,7 @@ export {
   OperationStatus,
 } from './types/index';
 
+// Export checkout types
 export {
   CreateCheckoutParams,
   CheckoutResponse,
@@ -38,6 +40,9 @@ export {
   RequestedInfoItem,
   CheckoutMetadata,
 } from './types/checkout';
+
+// Export wallet types
+export { CreateWalletParams } from './types/wallet';
 
 // Export webhook types
 export {
@@ -64,6 +69,7 @@ export {
   Web3ChargeChargeKind,
   CHARGE_KIND,
   TimelineItemStatus,
+  TIMELINE_ITEM_STATUS,
   Web3ChargeTimelineItemStatus,
   Web3ChargeTimelineItem,
   Web3ChargeCheckout,
@@ -80,7 +86,12 @@ export {
   Web3ChargeWeb3DataTransferIntentCallData,
   Web3ChargeWeb3DataTransferIntentMetadata,
   GetChargesParams,
+  PayChargeResponse,
+  PayChargeParams,
 } from './types/charge';
+
+// Export contract types
+export { Address, PaymentCurrency } from './types/contract';
 
 // Export API types
 export {

@@ -2,6 +2,12 @@ import { APIResponse } from '../types/api';
 import { BaseService } from './base.service';
 import { CreateWebhookParams, WebhookResponse } from '../types/webhook';
 
+/**
+ * Service for managing Webhooks within the SDK
+ * Provides functionality for creating and configuring webhooks
+ *
+ * @extends {BaseService}
+ */
 export class WebhooksService extends BaseService {
   /**
    * Creates a new webhook subscription in the Coinbase Commerce platform

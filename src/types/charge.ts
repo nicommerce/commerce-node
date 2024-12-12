@@ -3,7 +3,7 @@ import { BaseResource, BaseMetadata, Price, Pagination } from './common';
 
 import { Address, PaymentCurrency } from './contract';
 
-const TIMELINE_ITEM_STATUS = {
+export const TIMELINE_ITEM_STATUS = {
   COMPLETED: 'COMPLETED',
   EXPIRED: 'EXPIRED',
   FAILED: 'FAILED',
