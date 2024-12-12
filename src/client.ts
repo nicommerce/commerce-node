@@ -7,6 +7,8 @@ import {
   BaseResponse,
 } from './types/index';
 import { ChargesService } from './service/charges.service';
+import { CheckoutsService } from './service/checkouts.service';
+import { WebhooksService } from './service/webhooks.service';
 
 /**
  * Default configuration for the SDK
@@ -34,6 +36,8 @@ export class CommerceSDK {
   private readonly config: SDKConfig;
   private readonly retryOptions: RetryOptions;
   public readonly charges: ChargesService;
+  public readonly checkouts: CheckoutsService;
+  public readonly webhooks: WebhooksService;
 
   /**
    * Creates a new instance of the SDK client
@@ -60,6 +64,8 @@ export class CommerceSDK {
     };
 
     this.charges = new ChargesService(this.config, this.retryOptions);
+    this.checkouts = new CheckoutsService(this.config, this.retryOptions);
+    this.webhooks = new WebhooksService(this.config, this.retryOptions);
   }
 
   /**

@@ -1,3 +1,6 @@
+import { BaseResource, BaseMetadata, Price } from './common';
+
+// Timeline status
 const TIMELINE_ITEM_STATUS = {
   COMPLETED: 'COMPLETED',
   EXPIRED: 'EXPIRED',
@@ -8,20 +11,11 @@ const TIMELINE_ITEM_STATUS = {
   CANCELED: 'CANCELED',
 } as const;
 
-// Export the type and values separately
 export type Web3ChargeTimelineItemStatus =
   (typeof TIMELINE_ITEM_STATUS)[keyof typeof TIMELINE_ITEM_STATUS];
 export const TimelineItemStatus = TIMELINE_ITEM_STATUS;
 
-const PRICING_TYPE = {
-  fixed_price: 'fixed_price',
-  no_price: 'no_price',
-} as const;
-
-export type Web3ChargePricingType =
-  (typeof PRICING_TYPE)[keyof typeof PRICING_TYPE];
-export const PricingType = PRICING_TYPE;
-
+// Charge kind
 const CHARGE_KIND = {
   WEB3: 'WEB3',
 } as const;
@@ -37,7 +31,7 @@ export type Web3ChargeTimelineItem = {
 
 export type Web3ChargeWeb3RetailPaymentMetadataFeesItem = {
   title: string;
-  amount: Currency;
+  amount: Price;
   feeType: string;
 };
 
@@ -46,32 +40,28 @@ export type Web3ChargeWeb3RetailPaymentMetadata = {
   sourceLedgerAccountId?: string;
   sourceLedgerAccountCurrency?: string;
   twoFactorRequired?: boolean;
-  sourceAmount?: Currency;
-  exchangeRateWithSpread?: Currency;
-  exchangeRateWithoutSpread?: Currency;
+  sourceAmount?: Price;
+  exchangeRateWithSpread?: Price;
+  exchangeRateWithoutSpread?: Price;
   fees?: Web3ChargeWeb3RetailPaymentMetadataFeesItem[];
   maxRetailPaymentValueUsd?: number;
   highValuePaymentCurrencies?: string[];
 };
 
-export type Web3Charge = {
-  brandColor?: string;
-  brandLogoUrl?: string;
+export type Web3Charge = BaseResource & {
   chargeKind: Web3ChargeChargeKind;
   checkout?: Web3ChargeCheckout;
   code: string;
   collectedEmail: boolean;
   confirmedAt?: string;
   createdAt: string;
-  description?: string;
   expiresAt: string;
   hostedUrl: string;
-  id: string;
-  metadata?: Web3ChargeMetadata;
-  name?: string;
-  organizationName?: string;
-  pricing: Web3ChargePricing;
-  pricingType: Web3ChargePricingType;
+  metadata?: BaseMetadata;
+  pricing: {
+    local: Price;
+    settlement: Price;
+  };
   pwcbOnly?: boolean;
   ocsPointsOverride?: boolean;
   redirects?: Web3ChargeRedirects;
@@ -81,6 +71,24 @@ export type Web3Charge = {
   web3Data: Web3ChargeWeb3Data;
   web3RetailPaymentsEnabled: boolean;
   web3RetailPaymentMetadata?: Web3ChargeWeb3RetailPaymentMetadata;
+};
+
+export interface ChargesResponse {
+  data: Web3Charge;
+  warnings?: string[];
+}
+
+export type CreateChargeParams = {
+  pricing_type: 'fixed_price' | 'no_price';
+  local_price: {
+    amount: string;
+    currency: string;
+  };
+};
+
+export type HydrateChargeParams = {
+  sender: string;
+  chain_id: number;
 };
 
 export type Web3ChargeWeb3DataSubsidizedPaymentsChainToTokens = Record<
@@ -160,17 +168,12 @@ export type Web3ChargeRedirects = {
 };
 
 export type Web3ChargePricing = {
-  local: Currency;
-  settlement: Currency;
+  local: Price;
+  settlement: Price;
 };
 
-export type Web3ChargeMetadata = { [key: string]: string };
+export type Web3ChargeMetadata = BaseMetadata;
 
 export type Web3ChargeCheckout = {
   id?: string;
-};
-
-export type Currency = {
-  amount: string;
-  currency: string;
 };
