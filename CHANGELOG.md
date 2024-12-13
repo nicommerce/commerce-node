@@ -1,5 +1,12 @@
 # Coinbase Commerce SDK Changelog
 
+# [1.3.0](https://github.com/nicommerce/commerce-node/compare/v1.2.0...v1.3.0) (2024-12-13)
+
+
+### Features
+
+* **create-charge:** add more charge creation params ([#16](https://github.com/nicommerce/commerce-node/issues/16)) ([ced3b56](https://github.com/nicommerce/commerce-node/commit/ced3b561f0b796cfb742ee67f4a766c3dc659740))
+
 # [1.2.0](https://github.com/nicommerce/commerce-node/compare/v1.1.0...v1.2.0) (2024-12-12)
 
 
