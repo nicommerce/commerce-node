@@ -37,6 +37,11 @@ export class ChargesService extends BaseService {
    * @param params - The charge creation parameters
    * @param params.pricing_type - The pricing type for the charge
    * @param params.local_price - The price information for the charge
+   * @param params.name - The name of the charge
+   * @param params.description - The description of the charge
+   * @param params.metadata - Additional metadata for the charge
+   * @param params.redirect_url - The URL to redirect to after payment
+   * @param params.cancel_url - The URL to redirect to after payment cancellation
    *
    * @returns {Promise<APIResponse<ChargeResponse>>} A promise that resolves to the created charge
    *
