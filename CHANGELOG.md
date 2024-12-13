@@ -1,5 +1,12 @@
 # Coinbase Commerce SDK Changelog
 
+# [1.4.0](https://github.com/nicommerce/commerce-node/compare/v1.3.0...v1.4.0) (2024-12-13)
+
+
+### Features
+
+* **examples:** moved examples outside of source ([#18](https://github.com/nicommerce/commerce-node/issues/18)) ([92f9b4a](https://github.com/nicommerce/commerce-node/commit/92f9b4a41185399c60584443128a6d564cea035a))
+
 # [1.3.0](https://github.com/nicommerce/commerce-node/compare/v1.2.0...v1.3.0) (2024-12-13)
 
 
