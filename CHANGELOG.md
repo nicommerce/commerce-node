@@ -1,5 +1,12 @@
 # Coinbase Commerce SDK Changelog
 
+# [1.5.0](https://github.com/nicommerce/commerce-node/compare/v1.4.0...v1.5.0) (2024-12-13)
+
+
+### Features
+
+* **pay-charge:** simplify payment currency interface ([#19](https://github.com/nicommerce/commerce-node/issues/19)) ([dab8c03](https://github.com/nicommerce/commerce-node/commit/dab8c039ea53ee3825aead0bc45d9e6d6e65ea3f))
+
 # [1.4.0](https://github.com/nicommerce/commerce-node/compare/v1.3.0...v1.4.0) (2024-12-13)
 
 
