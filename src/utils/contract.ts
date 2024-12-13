@@ -2,15 +2,15 @@ import { ContractFunctionArgs } from 'viem';
 import {
   Web3ChargeWeb3DataContractAddresses,
   Web3ChargeWeb3DataTransferIntent,
-} from '../types/charge.js';
+} from '../types/charge';
 import {
   Address,
   PaymentCurrency,
   Permit2SignatureTransferData,
   TransferIntent,
-} from '../types/contract.js';
-import { COMMERCE_CONTRACT_ABI } from '../abi/commerceContract.js';
-import { NATIVE_CURRENCY_ADDRESS } from './currency.js';
+} from '../types/contract';
+import { COMMERCE_CONTRACT_ABI } from '../abi/commerceContract';
+import { NATIVE_CURRENCY_ADDRESS } from './currency';
 
 export const SPREAD_PERCENTAGE = 1;
 
