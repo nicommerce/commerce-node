@@ -23,6 +23,7 @@ import {
 } from '../utils/contract';
 import { PERMIT2_ADDRESS, signPermit } from '../utils/signPermit';
 import { COMMERCE_CONTRACT_ABI } from '../abi/commerceContract';
+import { getPaymentCurrency } from '../utils/currency';
 
 /**
  * Service for managing Charges within the SDK
@@ -168,7 +169,7 @@ export class ChargesService extends BaseService {
    * @param params - The payment parameters
    * @param params.charge - The hydrated charge to be paid
    * @param params.walletClient - The Viem wallet client for transaction signing
-   * @param params.currency - The currency to use for payment (ERC20 token information)
+   * @param params.currency - The currency to use for payment (USDC)
    *
    * @returns {Promise<PayChargeResponse>} A promise that resolves to the payment transaction details
    * @property {string} transactionHash - The hash of the submitted transaction
@@ -183,9 +184,7 @@ export class ChargesService extends BaseService {
    * const paymentResult = await commerce.charges.payCharge({
    *   charge: charge.data,
    *   walletClient,
-   *   currency: {
-   *     contractAddress: '0x...' // ERC20 token address
-   *   }
+   *   currency: USDC
    * });
    *
    * console.log(`Transaction submitted: ${paymentResult.transactionHash}`);
@@ -207,6 +206,7 @@ export class ChargesService extends BaseService {
         'Charge has not been hydrated',
       );
     }
+
     const extendedClient = walletClient.extend(publicActions);
     const payerAddress = extendedClient.account?.address;
 
@@ -215,6 +215,14 @@ export class ChargesService extends BaseService {
     }
 
     const currentChainId = await walletClient.getChainId();
+
+    const paymentCurrency = getPaymentCurrency(currency, currentChainId);
+    if (!paymentCurrency) {
+      throw new SDKError(
+        SDKErrorType.VALIDATION,
+        `Unsupported payment currency: ${currency}`,
+      );
+    }
 
     if (currentChainId !== charge.web3Data.transferIntent.metadata.chainId) {
       throw new SDKError(
@@ -227,14 +235,14 @@ export class ChargesService extends BaseService {
     );
 
     const functionName = inferContractFunctionFromCurrency(
-      currency,
+      paymentCurrency,
       transferIntent,
     );
 
     if (functionName !== 'transferToken') {
       throw new SDKError(
         SDKErrorType.VALIDATION,
-        `Unsupported payment currency: ${currency.contractAddress}`,
+        `Unsupported payment currency: ${paymentCurrency.contractAddress}`,
       );
     }
 
@@ -288,7 +296,7 @@ export class ChargesService extends BaseService {
     }
 
     const tokenAllowance = await extendedClient.readContract({
-      address: currency.contractAddress,
+      address: paymentCurrency.contractAddress,
       abi: erc20Abi,
       functionName: 'allowance',
       args: [payerAddress, PERMIT2_ADDRESS],
@@ -298,7 +306,7 @@ export class ChargesService extends BaseService {
       const allowanceTxn = await extendedClient.writeContract({
         account: extendedClient.account,
         chain: walletClient.chain,
-        address: currency.contractAddress,
+        address: paymentCurrency.contractAddress,
         abi: erc20Abi,
         functionName: 'approve',
         args: [
@@ -322,7 +330,7 @@ export class ChargesService extends BaseService {
       walletClient,
       chainId: charge.web3Data.transferIntent.metadata.chainId,
       ownerAddress: payerAddress,
-      contractAddress: currency.contractAddress,
+      contractAddress: paymentCurrency.contractAddress,
       spenderAddress: commerceContractAddress,
       value: totalUsdcChargeAmount,
       deadline: BigInt(getUnixTimestamp(new Date(charge.expiresAt))),

@@ -3,6 +3,7 @@ import { randomBytes } from 'crypto';
 import { Permit2SignatureTransferData } from '../types/contract';
 import { Address, parseErc6492Signature, WalletClient } from 'viem';
 import { SDKError, SDKErrorType } from '../types';
+import { getPermit2Address } from './currency';
 
 export const PERMIT2_ADDRESS: Address =
   '0x000000000022D473030F116dDEE9F6B43aC78BA3';
@@ -38,6 +39,13 @@ export async function signPermit(params: {
     value,
     deadline,
   } = params;
+  const permit2Address = getPermit2Address(chainId);
+  if (!permit2Address) {
+    throw new SDKError(
+      SDKErrorType.VALIDATION,
+      'Permit2 contract not found for chain: ${chainId}',
+    );
+  }
   if (!walletClient.account) {
     throw new SDKError(SDKErrorType.VALIDATION, 'Wallet not connected');
   }
@@ -55,7 +63,7 @@ export async function signPermit(params: {
   const domainData = {
     name: 'Permit2',
     chainId,
-    verifyingContract: PERMIT2_ADDRESS,
+    verifyingContract: permit2Address,
   };
   const signature = await walletClient.signTypedData({
     account: walletClient.account,

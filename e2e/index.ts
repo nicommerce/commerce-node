@@ -1,4 +1,3 @@
-import { PaymentCurrency } from '../src/types/contract';
 import { CommerceSDK } from '../src/client';
 
 const COMMERCE_API_KEY = process.env.COMMERCE_API_KEY;
@@ -6,11 +5,6 @@ const COMMERCE_API_URL = process.env.COMMERCE_API_URL;
 const COMMERCE_RPC_URL = process.env.COMMERCE_RPC_URL;
 const COMMERCE_PAYER_WALLET_PRIVATE_KEY =
   process.env.COMMERCE_PAYER_WALLET_PRIVATE_KEY;
-const USDC_CURRENCY: PaymentCurrency = {
-  contractAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
-  isNativeAsset: false,
-  decimals: 6,
-};
 
 async function test(): Promise<void> {
   const commerce = new CommerceSDK({
@@ -88,7 +82,7 @@ async function test(): Promise<void> {
   const response = await commerce.charges.payCharge({
     walletClient: payerWallet,
     charge: hydratedCharge.data,
-    currency: USDC_CURRENCY,
+    currency: 'USDC',
   });
   console.log(response);
 }

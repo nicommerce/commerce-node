@@ -10,9 +10,9 @@ import {
   TransferIntent,
 } from '../types/contract.js';
 import { COMMERCE_CONTRACT_ABI } from '../abi/commerceContract.js';
+import { NATIVE_CURRENCY_ADDRESS } from './currency.js';
 
 export const SPREAD_PERCENTAGE = 1;
-const NATIVE_CURRENCY_ADDRESS = '0x0000000000000000000000000000000000000000';
 
 export function transferToken(
   transferIntent: TransferIntent,
