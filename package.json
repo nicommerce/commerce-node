@@ -44,7 +44,7 @@
     "preversion": "yarn lint",
     "version": "yarn format && git add -A src",
     "postversion": "git push && git push --tags",
-    "test:integration": "yarn build && node --env-file=.env dist/scripts/pay-charge.js"
+    "test:integration": "node -r ts-node/register --env-file=.env e2e/index.ts"
   },
   "keywords": [
     "coinbase",
