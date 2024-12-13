@@ -86,7 +86,12 @@ export interface ChargesResponse {
 }
 
 export type CreateChargeParams = {
+  name?: string;
+  description?: string;
   pricing_type: 'fixed_price' | 'no_price';
+  metadata?: Record<string, unknown>;
+  redirect_url?: string;
+  cancel_url?: string;
   local_price: {
     amount: string;
     currency: string;
