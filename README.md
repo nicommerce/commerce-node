@@ -22,8 +22,11 @@ import { CommerceSDK } from 'commerce-node';
 const commerce = new CommerceSDK({
   apiKey: 'YOUR_API_KEY', // Required
   baseUrl: 'YOUR_API_URL', // Optional, defaults to https://api.commerce.coinbase.com
+  baseRpcUrl: 'RPC_URL', // Optional, needed for payments
 });
 ```
+
+See `SDKConfig` for possible configuration parameters.
 
 ## Usage
 
@@ -47,7 +50,14 @@ const { data: hydratedCharge } = await commerce.charges.hydrateCharge(
     chain_id: 1,
   },
 );
+
+// Get charge
+const { data: charges } = await sdk.charges.getCharges();
 ```
+
+See examples folder for a full list.
+
+SDK docs: https://nicommerce.github.io/commerce-node/
 
 ## Error Handling
 

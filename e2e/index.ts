@@ -1,5 +1,5 @@
-import { PaymentCurrency } from '../types/contract';
-import { CommerceSDK } from '../client';
+import { PaymentCurrency } from '../src/types/contract';
+import { CommerceSDK } from '../src/client';
 
 const COMMERCE_API_KEY = process.env.COMMERCE_API_KEY;
 const COMMERCE_API_URL = process.env.COMMERCE_API_URL;
