@@ -12,15 +12,6 @@ yarn add commerce-node
 npm install commerce-node
 ```
 
-**NOTE**
-
-There is a known issue with [viem](https://github.com/wevm/viem/issues/2621).
-The temporary workaround is to add the following to your `tsconfig.sjon`
-
-```json
-"skipLibCheck": true
-```
-
 ## Configuration
 
 Create a new SDK instance with your API credentials:
@@ -115,4 +106,19 @@ MIT
 
 ## Documentation
 
+### SKD Docs
+
+[SDK docs](https://nicommerce.github.io/commerce-node/).
+
+### Api Docs
+
 For detailed API documentation, visit the [Coinbase Commerce API Reference](https://docs.cdp.coinbase.com/commerce-onchain/docs/welcome).
+
+## Known Issues
+
+There is a known issue with [viem](https://github.com/wevm/viem/issues/2621).
+The temporary workaround is to add the following to your `tsconfig.sjon`
+
+```json
+"skipLibCheck": true
+```
