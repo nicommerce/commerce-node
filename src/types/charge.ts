@@ -1,7 +1,8 @@
 import { WalletClient } from 'viem';
 import { BaseResource, BaseMetadata, Price, Pagination } from './common';
 
-import { Address, PaymentCurrency } from './contract';
+import { Address } from './contract';
+import { SupportedCurrencies } from '../utils/currency';
 
 export const TIMELINE_ITEM_STATUS = {
   COMPLETED: 'COMPLETED',
@@ -201,7 +202,7 @@ export type Web3ChargeCheckout = {
 export type PayChargeParams = {
   charge: Web3Charge;
   walletClient: WalletClient;
-  currency: PaymentCurrency;
+  currency: SupportedCurrencies;
 };
 
 export type PayChargeResponse = {
