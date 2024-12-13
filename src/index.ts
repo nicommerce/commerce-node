@@ -38,7 +38,6 @@ export {
   Checkout,
   GetCheckoutsParams,
   RequestedInfoItem,
-  CheckoutMetadata,
 } from './types/checkout';
 
 // Export wallet types

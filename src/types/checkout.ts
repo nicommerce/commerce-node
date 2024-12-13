@@ -8,33 +8,28 @@ export type RequestedInfoItem =
   | 'employer'
   | 'occupation';
 
-export type CheckoutMetadata = {
-  custom_field?: string;
-  custom_field_two?: string;
-};
-
 export type CreateCheckoutParams = {
   name?: string;
   description?: string;
-  pricing_type: PricingType;
-  logo_url?: string;
-  extended_description?: string;
-  local_price: Price;
-  buyer_locale?: string;
-  metadata?: CheckoutMetadata;
-  requested_info?: RequestedInfoItem[];
+  pricingType: PricingType;
+  logoUrl?: string;
+  extendedDescription?: string;
+  localPrice: Price;
+  buyerLocale?: string;
+  metadata?: Record<string, unknown>;
+  requestedInfo?: RequestedInfoItem[];
 };
 
 export type Checkout = {
-  brand_color?: string;
-  coinbase_managed_merchant: boolean;
+  brandColor?: string;
+  coinbaseManagedMerchant: boolean;
   description?: string;
   id: string;
-  local_price: Price;
+  localPrice: Price;
   name?: string;
-  organization_name: string;
-  pricing_type: PricingType;
-  requested_info?: RequestedInfoItem[];
+  organizationName: string;
+  pricingType: PricingType;
+  requestedInfo?: RequestedInfoItem[];
   resource: string;
 };
 
@@ -52,7 +47,7 @@ export interface CheckoutsResponse {
 // Optional: Query parameters type for the list method
 export interface GetCheckoutsParams {
   limit?: number;
-  starting_after?: string;
-  ending_before?: string;
+  startingAfter?: string;
+  endingBefore?: string;
   order?: 'desc' | 'asc';
 }

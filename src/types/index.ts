@@ -1,3 +1,5 @@
+import { SupportedChains } from '../utils/currency';
+
 /**
  * Configuration options for the SDK
  */
@@ -6,8 +8,8 @@ export interface SDKConfig {
   apiKey: string;
   /** Base URL for API requests */
   baseUrl?: string;
-  /** Base URL for RPC requests */
-  baseRpcUrl?: string;
+  /** Mapping of Chain ID to URL for RPC requests */
+  rpcUrls?: Partial<Record<SupportedChains, string>>;
   /** Request timeout in milliseconds */
   timeout?: number;
   /** Version of the API to use */

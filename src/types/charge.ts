@@ -89,11 +89,11 @@ export interface ChargesResponse {
 export type CreateChargeParams = {
   name?: string;
   description?: string;
-  pricing_type: 'fixed_price' | 'no_price';
+  pricingType: 'fixed_price' | 'no_price';
   metadata?: Record<string, unknown>;
-  redirect_url?: string;
-  cancel_url?: string;
-  local_price: {
+  redirectUrl?: string;
+  cancelUrl?: string;
+  localPrice: {
     amount: string;
     currency: string;
   };
@@ -101,14 +101,14 @@ export type CreateChargeParams = {
 
 export type HydrateChargeParams = {
   sender: string;
-  chain_id: number;
+  chainId: number;
 };
 
 // Optional: Query parameters type for the list method
 export interface GetChargesParams {
   limit?: number;
-  starting_after?: string;
-  ending_before?: string;
+  startingAfter?: string;
+  endingBefore?: string;
   order?: 'desc' | 'asc';
 }
 
