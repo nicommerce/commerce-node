@@ -1,9 +1,14 @@
 import { randomUUID } from 'node:crypto';
-import { APIRequestConfig, APIResponse } from '../types/api';
+import {
+  APIRequestConfig,
+  APIResponse,
+  JsonData,
+  RequestParams,
+} from '../types/api';
 import { RetryOptions, SDKError, SDKErrorType } from '../types/index';
 import { SDKConfig } from '../types/index';
 import { URL } from 'node:url';
-import { deepCamelcaseKeys } from '../utils/casing';
+import { deepCamelcaseKeys, deepSnakecaseKeys } from '../utils/casing';
 
 /**
  * Abstract base service class that provides common functionality for all API services.
@@ -75,9 +80,19 @@ export abstract class BaseService {
         'X-CC-Api-Key': this.config.apiKey,
       };
 
+      let convertedData: RequestParams | undefined;
+
+      if (data) {
+        convertedData = deepSnakecaseKeys(data as JsonData) as RequestParams;
+        // We want to retain original casing of user-provided metadata
+        if (data.metadata) {
+          convertedData.metadata = data.metadata;
+        }
+      }
+
       const response = await fetch(url.toString(), {
         method,
-        body: data ? JSON.stringify(data) : null,
+        body: convertedData ? JSON.stringify(convertedData) : null,
         headers,
         signal: AbortSignal.timeout(options.timeout ?? 30000),
       });

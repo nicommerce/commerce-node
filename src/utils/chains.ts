@@ -1,27 +1,12 @@
-import { SDKError, SDKErrorType } from '../types';
+import { SDKConfig, SDKError, SDKErrorType } from '../types';
 import { mainnet, base, polygon, Chain } from 'viem/chains';
 
-export function getRpcUrl(chainId: number, baseRpcUrl: string): string {
-  const clientId = 'commerce%2Ffrontend';
-  let networkName;
-
-  switch (chainId) {
-    case mainnet.id:
-      networkName = 'ethereum-mainnet';
-      break;
-    case polygon.id:
-      networkName = 'polygon-mainnet';
-      break;
-    case base.id:
-      networkName = 'base';
-      break;
-    default:
-      throw new SDKError(
-        SDKErrorType.VALIDATION,
-        `Unsupported chainId: ${chainId}`,
-      );
-  }
-  return `${baseRpcUrl}?targetName=${networkName}&clientId=${clientId}`;
+export function getRpcUrl(
+  chainId: number,
+  rpcUrls: SDKConfig['rpcUrls'],
+): string | undefined {
+  const chainIdString = chainId.toString() as keyof SDKConfig['rpcUrls'];
+  return rpcUrls ? rpcUrls[chainIdString] : undefined;
 }
 
 export function getChainById(chainId: number): Chain {

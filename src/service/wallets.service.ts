@@ -49,14 +49,22 @@ export class WalletsService extends BaseService {
    */
   createWallet(params: CreateWalletParams): WalletClient {
     const { secretWords, chainId, privateKey } = params;
-    if (!this.config.baseRpcUrl) {
-      throw new SDKError(SDKErrorType.VALIDATION, 'baseRpcUrl not set');
-    }
+
     const chain = getChainById(chainId);
     if (!secretWords && !privateKey) {
       throw new SDKError(
         SDKErrorType.VALIDATION,
         'cannot create wallet without secretWords or privateKey',
+      );
+    }
+    if (!this.config.rpcUrls) {
+      throw new SDKError(SDKErrorType.VALIDATION, 'rpcUrls not set');
+    }
+    const rpcUrl = getRpcUrl(chainId, this.config.rpcUrls);
+    if (!rpcUrl) {
+      throw new SDKError(
+        SDKErrorType.VALIDATION,
+        `rpcUrl not set for chain: ${chainId}`,
       );
     }
     const account = secretWords
@@ -66,7 +74,7 @@ export class WalletsService extends BaseService {
     return createWalletClient({
       account,
       chain,
-      transport: http(getRpcUrl(params.chainId, this.config.baseRpcUrl)),
+      transport: http(rpcUrl),
     }).extend(publicActions);
   }
 }

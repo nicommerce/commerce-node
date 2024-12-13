@@ -13,9 +13,14 @@ export type APIResponse<T = unknown> = {
   timestamp: string;
 };
 
+export type JsonData = Record<string, unknown> | Record<string, unknown>[];
+export type RequestParams = Record<string, unknown> & {
+  metadata?: Record<string, unknown>;
+};
+
 export type APIRequestConfig = {
   method: HTTPMethod;
   path: string;
   options?: RequestOptions;
-  data?: unknown;
+  data?: RequestParams;
 };

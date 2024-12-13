@@ -10,12 +10,12 @@ async function test(): Promise<void> {
   const commerce = new CommerceSDK({
     apiKey: COMMERCE_API_KEY as string,
     baseUrl: COMMERCE_API_URL,
-    baseRpcUrl: COMMERCE_RPC_URL,
+    rpcUrls: { 8453: COMMERCE_RPC_URL },
   });
 
   const { data: newCharge } = await commerce.charges.createCharge({
-    pricing_type: 'fixed_price',
-    local_price: {
+    pricingType: 'fixed_price',
+    localPrice: {
       amount: '0.01',
       currency: 'USD',
     },
@@ -27,7 +27,7 @@ async function test(): Promise<void> {
     newCharge.data.id,
     {
       sender: '0x89fAbEA34A3A377916EBF7793f37E11EE98D29Fa',
-      chain_id: 8453,
+      chainId: 8453,
     },
   );
   console.log('Charge hydrated:');
@@ -42,14 +42,14 @@ async function test(): Promise<void> {
   console.log(JSON.stringify(charges, null, 2));
 
   const { data: checkout } = await commerce.checkouts.createCheckout({
-    pricing_type: 'fixed_price',
-    local_price: {
+    pricingType: 'fixed_price',
+    localPrice: {
       amount: '100.00',
       currency: 'USD',
     },
     name: 'Test Checkout',
     description: 'Test checkout description',
-    requested_info: ['email'],
+    requestedInfo: ['email'],
   });
   console.log('Checkout created:');
   console.log(JSON.stringify(checkout, null, 2));
